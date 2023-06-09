@@ -2,7 +2,7 @@
     <div class="bpmn-example-container">
       <div id="graph" class="viewport" style="width: 100%; height: 100%;"></div>
       <BpmnPattern :lf="lf" />
-        <BpmnIo :lf="lf" />
+      <BpmnIo :lf="lf" />
     </div>
 
 </template>
@@ -50,10 +50,22 @@ onMounted(() => {
       ...config,
       container: document.querySelector('#graph')
     });
-    lf.value.render()
+    lf.value.render();
 });
 
+const setData = function (data) {
+  lf.value.render(data);
+}
 
+const getData = function (data) {
+  return lf.value.getGraphData();
+}
+
+
+defineExpose({
+  setData,
+  getData,
+});
 
 
 </script>

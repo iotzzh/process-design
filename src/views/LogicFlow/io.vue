@@ -1,13 +1,13 @@
 <template>
   <div className="graph-io">
-    <span title="下载 XML" @click="downloadXml">
+    <span title="下载 XML" @click="downloadJson">
       <img :src="dImage" alt="下载XML" />
     </span>
     <span id="download-img" title="下载图片" @click="downloadImage">
       <img :src="photoImage" alt="下载图片" />
     </span>
     <span id="upload-xml" title="上传 XML">
-      <input type="file" className="upload" @change="uploadXml" />
+      <input type="file" className="upload" @change="uploadJson" />
       <img :src="uploadImage" alt="上传XML" />
     </span>
   </div>
@@ -43,18 +43,18 @@ function downloadImage() {
   lf.value.getSnapshot();
 }
 
-function downloadXml() {
+function downloadJson() {
   const data = lf.value.getGraphData();
-  download('logic-flow.xml', data);
+  download('logic-flow.json', JSON.stringify(data));
 }
 
-function uploadXml(ev) {
+function uploadJson(ev) {
   const file = (ev.target).files[0];
   const reader = new FileReader()
   reader.onload = (event) => {
     if (event.target) {
-      const xml = event.target.result;
-      lf.value.render(xml);
+      const json = event.target.result;
+      lf.value.render(JSON.parse(json));
     }
   }
   reader.readAsText(file); // you could also read images and other binaries

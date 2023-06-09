@@ -1,17 +1,64 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-</script>
-
 <template>
   <div class="body">
-    <RouterView />
-    <div class="choose-box">
-      <router-link class="link" to="/">LogicFlow</router-link>
-      <router-link class="link" to="/logicflow-bpmn">LogicFlowBPMN</router-link>
-      <router-link class="link" to="/bpmn">BPMN</router-link>
-    </div>
+    <LogicFlow v-if="cType === 'logicflow'" ref="refLogicFlow"></LogicFlow>
+    <LogicFlowBpmn v-else-if="cType === 'logicflow-bpmn'" ref="refLogicFlowBpmn"></LogicFlowBpmn>
+    <BPMN v-else-if="cType === 'bpmn'" ref="refBpmn"></BPMN>
+    <div v-else>请选择合适的模型：logicflow， logicflow-bpmn， bpmn</div>
   </div>
 </template>
+
+<script setup>
+import { onMounted, ref, nextTick } from 'vue';
+import LogicFlow from './views/LogicFlow/index.vue';
+import LogicFlowBpmn from './views/LogicFlowBPMN/index.vue';
+import BPMN from './views/BPMN/index.vue';
+
+const refLogicFlow = ref();
+const refLogicFlowBpmn = ref();
+
+const refBpmn = ref();
+
+
+const cType = ref('logicflow');
+
+onMounted(() => {
+  window.processDesign = {
+  type: 'logicflow',
+  getData: refLogicFlow.value.getData,
+  setData: refLogicFlow.value.setData,
+  use: async function(type) {
+    cType.value = type;
+    await nextTick();
+    this.type = type;
+    switch(type) {
+      case 'logicflow': {
+        this.getData = refLogicFlow.value.getData;
+        this.setData = refLogicFlow.value.setData;
+        break;
+      }
+      case 'logicflow-bpmn': {
+        this.getData = refLogicFlowBpmn.value.getData;
+        this.setData = refLogicFlowBpmn.value.setData;
+        break;
+      }
+      case 'bpmn': {
+        this.getData = refBpmn.value.getData;
+        this.setData = refBpmn.value.setData;
+        break;
+      }
+      default: {
+        this.getData = function(){};
+        this.setData = function(){};
+        break;
+      }
+    }
+  },
+};
+
+});
+
+</script>
+
 
 <style scoped>
 .body {
