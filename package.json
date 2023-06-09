@@ -10,6 +10,9 @@
   "dependencies": {
     "@logicflow/core": "^1.2.8",
     "@logicflow/extension": "^1.2.8",
+    "bpmn-js": "^13.2.0",
+    "bpmn-js-properties-panel": "^2.0.0",
+    "camunda-bpmn-moddle": "^7.0.1",
     "core-js": "^3.30.2",
     "pinia": "^2.0.36",
     "vue": "^3.3.2",
