@@ -1,0 +1,24 @@
+{
+  "name": "process-design",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@logicflow/core": "^1.2.8",
+    "@logicflow/extension": "^1.2.8",
+    "core-js": "^3.30.2",
+    "pinia": "^2.0.36",
+    "vue": "^3.3.2",
+    "vue-json-pretty": "^2.2.4",
+    "vue-router": "^4.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.2.3",
+    "@vitejs/plugin-vue-jsx": "^3.0.1",
+    "vite": "^4.3.5"
+  }
+}
