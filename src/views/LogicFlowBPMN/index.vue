@@ -61,10 +61,15 @@ const getData = function (data) {
   return lf.value.getGraphData();
 }
 
+const clearData = function (data) {
+  return lf.value.clearData();
+}
+
 
 defineExpose({
   setData,
   getData,
+  clearData,
 });
 
 

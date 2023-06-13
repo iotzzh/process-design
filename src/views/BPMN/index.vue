@@ -3,6 +3,7 @@
         <div class="container" style="width: 100%; height: 100%;">
             <!-- 创建一个canvas画布 npmn-js是通过canvas实现绘图的，并设置ref让vue获取到element -->
             <div class="bpmn-canvas" ref="canvas" style="width: 100%; height: 100%;"></div>
+            <BpmnIo :bpmnModeler="bpmnModeler" :canvas="canvas" />
         </div>
     </div>
 </template>
@@ -11,6 +12,7 @@
 import { template as bpmnTemplate } from './static'
 import BpmnModeler from "bpmn-js/lib/Modeler";
 import { onMounted, ref } from 'vue';
+import BpmnIo from './io.vue'
 
 const bpmnModeler = ref();
 const canvas = ref();
@@ -56,9 +58,21 @@ const getData = async function (callback) {
     });
 }
 
+const clearData = () =>  {
+    bpmnModeler.value.destroy();
+    bpmnModeler.value = new BpmnModeler({
+        // 设置bpmn的绘图容器
+        container: canvas.value,
+    });
+
+    bpmnModeler.value.createDiagram();
+}
+
+
 
 defineExpose({
     setData,
     getData,
+    clearData
 });
 </script>

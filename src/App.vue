@@ -26,6 +26,7 @@ onMounted(() => {
   type: 'logicflow',
   getData: refLogicFlow.value.getData,
   setData: refLogicFlow.value.setData,
+  clearData: refLogicFlow.value.clearData,
   use: async function(type) {
     cType.value = type;
     await nextTick();
@@ -34,21 +35,26 @@ onMounted(() => {
       case 'logicflow': {
         this.getData = refLogicFlow.value.getData;
         this.setData = refLogicFlow.value.setData;
+        this.clearData = refLogicFlow.value.clearData;
         break;
       }
       case 'logicflow-bpmn': {
         this.getData = refLogicFlowBpmn.value.getData;
         this.setData = refLogicFlowBpmn.value.setData;
+        this.clearData = refLogicFlowBpmn.value.clearData;
         break;
       }
       case 'bpmn': {
         this.getData = refBpmn.value.getData;
         this.setData = refBpmn.value.setData;
+        this.clearData = refBpmn.value.clearData;
+        
         break;
       }
       default: {
         this.getData = function(){};
         this.setData = function(){};
+        this.clearData = function(){};
         break;
       }
     }
