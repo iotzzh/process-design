@@ -51,14 +51,24 @@ const setData = function (data) {
 }
 
 const getData = async function (callback) {
-    await bpmnModeler.value.saveXML({ format: true }, (err, xml) => {
-        if (!err) {
-            callback(xml);
-        }
-    });
+    try {
+        const result = await bpmnModeler.value.saveXML({ format: true });
+        const { xml } = result;
+        return xml;
+    } catch (err) {
+        console.log(err);
+    }
+    // const result = bpmnModeler.value.saveXML({ format: true });
+    // const { xml } = result;
+    // return xml;
+    // bpmnModeler.value.saveXML({ format: true }, (err, xml) => {
+    //     if (!err) {
+    //         callback(xml);
+    //     }
+    // });
 }
 
-const clearData = () =>  {
+const clearData = () => {
     bpmnModeler.value.destroy();
     bpmnModeler.value = new BpmnModeler({
         // 设置bpmn的绘图容器
